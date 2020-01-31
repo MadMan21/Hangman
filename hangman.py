@@ -1,45 +1,57 @@
 import random
 
-Woerter = ['Krankenschwester']
-'''Finanzen', 'Handschelle', 'Essig', 'Rotwein'''
-
+Woerter = ['Krankenschwester', 'Finanzen', 'Handschelle', 'Essig', 'Rotwein']
 Wort = random.choice(Woerter)
 Wort = Wort.upper()
 # gets a random word out of our list
 
 newlist = list(Wort)
 # splits the random words into a list
-trys_left = 10
+trys_left = 100
 guessed_right = False
 number_of_rights = 0
-
+guesslist = list('x'  * len(newlist))
 
 
 
 while True :
+    if trys_left < 1:
+        print('You loose! GIT GUD!!!')
+        break
+
+    if guesslist == newlist:
+        print('You got it by guessing. Nice!')
+        break
+
     trys_left = trys_left - 1
-    my_input = str(input ('Gib einen Buchstaben ein oder loese das Wort: '))
+    my_input = str(input ('Enter a letter or solve the whole word. '))
     my_input = my_input.upper()
+    print ('TRYS LEFT: ', (trys_left))
+
+
 
     if len(my_input) == 1:
 
         if my_input in newlist:
+            index = newlist.index(my_input)
             number_of_rights = newlist.count(my_input)
-            guessed_right = True
+
+            indizes = [i for i, value in enumerate(newlist) if value == (my_input)]
+            for i in indizes:
+                guesslist [i] = my_input
+
+
+            guessstring = ''.join(guesslist)
+            print (guessstring)
+            print('Yes you guessed', number_of_rights, 'letter(s) right.')
 
         else:
-            guessed_right = False
+            guessstring = ''.join(guesslist)
+            print (guessstring)
+            print('No, thats wrong.')
 
-        if guessed_right == True:
-            trys_left = trys_left + 1
-            print('Yes you guessed', number_of_rights, 'letter(s) right, you got ', trys_left, 'trys left. ')
 
-        elif trys_left < 1:
-            print('You loose! GIT GUD!!!')
-            break
 
-        elif guessed_right == False:
-            print('no, thats wrong, guess again. You got ', trys_left, 'trys left.')
 
 
     elif len(my_input) == len(Wort):
@@ -49,3 +61,6 @@ while True :
 
         else:
             print('The length of the word is right, change the word!')
+
+def swap ():
+    guessstring[indizes] = my_input
